@@ -4,13 +4,19 @@ What makes the Wu Tang Clan so special? It's a combination of their style, creat
 
 vocabulary.js is an attempt at a similar elegance. It's a library that turns common and ubiquitous Javascript logic into tiny, re-usable functions. Don't bother memorizing implementations or searching Stack Overflow - just learn the function names.
 
-Number of functions: **74**
+Number of functions: **68**
 
 ### How is this different than lodash or Underscore?
 
 If lodash and Underscore are utility belts, then vocabulary.js is like a team of Batmans wearing utility belts.
 
 ## Usage
+
+Using ES6 destructuring and module syntax:
+
+```javascript
+const { focusFirstFormField, redirect, isEscapeKeyEvent } = require('vocabulary');
+```
 
 If you don't want the whole library, feel free to copy and paste the functions from the source!
 
@@ -28,4 +34,8 @@ None, unless you use one of the handful of functions that have external depedenc
 
 ## Contributing
 
+Pull requests welcome!
+
 ## License
+
+[ISC](https://en.wikipedia.org/wiki/ISC_license)

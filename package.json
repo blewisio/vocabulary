@@ -1,0 +1,22 @@
+{
+  "name": "vocabulary",
+  "version": "0.1.0",
+  "description": "JS utility library to the extreme.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blewis008/vocabulary.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "Brent Lewis <brent.lewis08@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blewis008/vocabulary/issues"
+  },
+  "homepage": "https://github.com/blewis008/vocabulary#readme"
+}
