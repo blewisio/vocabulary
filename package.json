@@ -1,6 +1,6 @@
 {
   "name": "vocabulary",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JS utility library to the extreme.",
   "main": "index.js",
   "scripts": {

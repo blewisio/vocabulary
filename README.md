@@ -4,7 +4,7 @@ What makes the Wu Tang Clan so special? It's a combination of their style, creat
 
 vocabulary.js is an attempt at a similar elegance. It's a library that turns common and ubiquitous Javascript logic into tiny, re-usable functions. Don't bother memorizing implementations or searching Stack Overflow - just learn the function names.
 
-Number of functions: **68**
+Number of functions: **74**
 
 ### How is this different than lodash or Underscore?
 

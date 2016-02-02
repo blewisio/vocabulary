@@ -12,15 +12,13 @@ module.exports = {
         }
     },
 
-    // TODO: reference function above
-    // isNotEmpty: function isNotEmpty (value) {
-    //     return !isEmpty(value);
-    // },
+    isNotEmpty: function isNotEmpty (value) {
+        return !this.isEmpty(value);
+    },
 
-    // TODO: reference function above
-    // isNotNullOrEmpty: function isNotNullOrEmpty (value) {
-    //     return isNotNull(value) && isNotEmpty(value);
-    // },
+    isNotNullOrEmpty: function isNotNullOrEmpty (value) {
+        return this.isNotNull(value) && this.isNotEmpty(value);
+    },
 
     isPositive: function isPositive (num) {
         return num > 0;
@@ -98,6 +96,8 @@ module.exports = {
 
     /* maps */
     getType: function getType (value) {
+        if (value === undefined) return 'undefined';
+        if (value === null) return 'null';
         return typeof value;
     },
 
@@ -133,10 +133,9 @@ module.exports = {
         return Array.prototype.slice.call(document.querySelectorAll(selector));
     },
 
-    // TODO: reference isNodeList function
-    // toList: function toList (obj) {
-    //     return isNodeList(obj) ? [].slice.call(obj) : [obj];
-    // },
+    toList: function toList (obj) {
+        return this.isNodeList(obj) ? [].slice.call(obj) : [obj];
+    },
 
     toHtmlId: function toHtmlId (id) {
         return id.charAt(0) === '#' ? id : '#' + id;
@@ -224,18 +223,17 @@ module.exports = {
         return array.slice();
     },
 
-    // TODO: reference 'last' function
-    // group: function group (array, size) {
-    //     var groups = [];
-    //     array.forEach(function (value) {
-    //         if (!last(groups) || last(groups).length === size) {
-    //             groups.push([value]);
-    //         } else {
-    //             last(groups).push(value);
-    //         }
-    //     });
-    //     return groups;
-    // },
+    group: function group (array, size) {
+        var groups = [];
+        array.forEach(function (value) {
+            if (!this.last(groups) || this.last(groups).length === size) {
+                groups.push([value]);
+            } else {
+                this.last(groups).push(value);
+            }
+        });
+        return groups;
+    },
 
     // get('a.b.c')({a: {b: {c: 7}}}); // -> 7
     getIn: function getIn (path) {
@@ -281,21 +279,19 @@ module.exports = {
         return search && search[0] === '?' ? search.substring(1) : '';
     },
 
-    // TODO: reference function above
-    // getQueryStringPairs: function getQueryStringPairs () {
-    //     var raw = getQueryStringRaw();
-    //     return raw.split('&');
-    // },
+    getQueryStringPairs: function getQueryStringPairs () {
+        var raw = this.getQueryStringRaw();
+        return raw.split('&');
+    },
 
-    // TODO: reference function above
-    // getQueryStringValue: function getQueryStringValue (key) {
-    //     var pairs = getQueryStringPairs();
-    //     pairs.map(function (pair) {
-    //         pair = pair.split('&');
-    //         if (pair[0] === key) return pair[1];
-    //     });
-    //     return '';
-    // },
+    getQueryStringValue: function getQueryStringValue (key) {
+        var pairs = this.getQueryStringPairs();
+        pairs.map(function (pair) {
+            pair = pair.split('&');
+            if (pair[0] === key) return pair[1];
+        });
+        return '';
+    },
 
     getSelectedDropdownOption: function getSelectedDropdownOption (dropdown) {
         return dropdown.options[dropdown.selectedIndex];
