@@ -145,6 +145,14 @@ module.exports = {
         return className.charAt(0) === '.' ? className : '#' + className;
     },
 
+    // http://stackoverflow.com/a/15829686
+    toCamelCase: function toCamelCase (str) {
+        return str.replace(/^([A-Z])|[\s-_](\w)/g, function (match, p1, p2) {
+            if (p2) return p2.toUpperCase();
+            return p1.toLowerCase();
+        });
+    },
+
     toHexString: function toHexString (num) {
         return num.toString(16);
     },
@@ -245,6 +253,10 @@ module.exports = {
         };
     },
 
+    removePhrase: function removePhrase (str, phrase) {
+        return str.replace(phrase, '');
+    },
+
     /* reducers */
     or: function or (a, b) {
         return a || b;
@@ -262,8 +274,32 @@ module.exports = {
         return a - b;
     },
 
+    orFalse: function orFalse (value) {
+        return value || false;
+    },
+
+    orZero: function orZero (value) {
+        return value || 0;
+    },
+
+    orEmptyString: function orEmptyString (value) {
+        return value || '';
+    },
+
+    orEmptyArray: function orEmptyString (value) {
+        return value || [];
+    },
+
+    orEmptyObject: function orEmptyObject (value) {
+        return value || {};
+    },
+
     getHtmlInputValue: function getHtmlInputValue (e) {
         return e.target.value;
+    },
+
+    getElementName: function getTagName (element) {
+        return element.nodeName.toLowerCase();
     },
 
     joinByNewLine: function joinByNewLine (array) {
@@ -344,6 +380,10 @@ module.exports = {
 
     ifNull: function ifNull (func, obj) {
         return obj ? obj : func(obj);
+    },
+
+    throwIfNull: function throwIfNull (value, error) {
+        if (!value) throw error;
     },
 
     shuffleInPlace: function shuffleInPlace (array) {
