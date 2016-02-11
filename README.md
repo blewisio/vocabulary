@@ -4,7 +4,7 @@ What makes the Wu Tang Clan so special? It's a combination of their style, creat
 
 vocabulary.js is an attempt at a similar elegance. It's a library that turns common and ubiquitous Javascript logic into tiny, re-usable functions. Don't bother memorizing implementations or searching Stack Overflow - just learn the function names.
 
-Number of functions: **83**
+Number of functions: **93**
 
 ### How is this different than lodash or Underscore?
 
@@ -23,9 +23,11 @@ If you don't want the whole library, feel free to copy and paste the functions f
 ## Giant List of Functions
 
 ```javascript
+isNull
 isNotNull
 isEmpty
 isNotEmpty
+isNullOrEmpty
 isNotNullOrEmpty
 isPositive
 isNegative
@@ -40,18 +42,11 @@ isEscapeKeyEvent
 isEnterKeyEvent
 isNodeList
 isString
+isObject
+isFunction
 hasLeadingForwardSlash
 hasTrailingForwardSlash
 isLinkCurrentRoute
-getType
-first
-second
-last
-increment
-decrement
-trim
-capitalize
-query
 toList
 toHtmlId
 toHtmlClass
@@ -65,6 +60,14 @@ toUniqueArray
 toEscapedHtml
 toUnescapedHtml
 toQueryString
+first
+second
+last
+increment
+decrement
+trim
+capitalize
+query
 appendTrailingSlash
 newObject
 generateRandomNumber
@@ -82,10 +85,14 @@ orZero
 orEmptyString
 orEmptyArray
 orEmptyObject
-getHtmlInputValue
-getElementName
 joinByNewLine
 joinByCommaSpace
+getType
+getButtons
+getDropdowns
+getInputs
+getHtmlInputValue
+getElementName
 getQueryStringRaw
 getQueryStringPairs
 getQueryStringValue
@@ -101,7 +108,10 @@ ifNull
 throwIfNull
 shuffleInPlace
 clearDropdownOptions
+removeProperty
 removeElement
+disableElement
+enableElement
 redirect
 enableEs6
 enableJsx
@@ -110,7 +120,7 @@ noop
 
 ## Browser Support
 
-Most functions should work in IE 9 or above. No attempt was made to make IE 8 or below work.
+Most functions should work in IE 9 or above. No attempt was made to make the library work in IE 8 or below.
 
 ## Dependencies
 

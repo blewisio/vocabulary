@@ -1,5 +1,9 @@
 module.exports = {
-    /* predicates */
+    /* predicates/conditions */
+    isNull: function isNull (obj) {
+        return obj === null || obj === undefined;
+    },
+
     isNotNull: function isNotNull (obj) {
         return obj !== null && obj !== undefined;
     },
@@ -13,11 +17,29 @@ module.exports = {
     },
 
     isNotEmpty: function isNotEmpty (value) {
-        return !this.isEmpty(value);
+        if (value.length === undefined) {
+            return Object.keys(value).length !== 0;
+        } else {
+            return value.length !== 0;
+        }
+    },
+
+    isNullOrEmpty: function isNullOrEmpty (value) {
+        if (value === null || value === undefined) return true;
+        if (value.length === undefined) {
+            return Object.keys(value).length === 0;
+        } else {
+            return value.length === 0;
+        }
     },
 
     isNotNullOrEmpty: function isNotNullOrEmpty (value) {
-        return this.isNotNull(value) && this.isNotEmpty(value);
+        if (value === null || value === undefined) return false;
+        if (value.length === undefined) {
+            return Object.keys(value).length !== 0;
+        } else {
+            return value.length !== 0;
+        }
     },
 
     isPositive: function isPositive (num) {
@@ -78,8 +100,19 @@ module.exports = {
             && typeof obj.reset === 'function';
     },
 
+    // TODO: use more complex getType function?
     isString: function isString (value) {
         return typeof value === 'string';
+    },
+
+    // TODO: use more complex getType function?
+    isObject: function isObject (value) {
+        return typeof value === 'object';
+    },
+
+    // TODO: use more complex getType function?
+    isFunction: function isFunction (value) {
+        return typeof value === 'function';
     },
 
     hasLeadingForwardSlash: function hasLeadingForwardSlash (str) {
@@ -94,45 +127,7 @@ module.exports = {
         return link.href === window.location.href;
     },
 
-    /* maps */
-    getType: function getType (value) {
-        if (value === undefined) return 'undefined';
-        if (value === null) return 'null';
-        return typeof value;
-    },
-
-    first: function first (arrayOrStr) {
-        return arrayOrStr[0];
-    },
-
-    second: function second (arrayOrStr) {
-        return arrayOrStr[1];
-    },
-
-    last: function last (arrayOrStr) {
-        return arrayOrStr[arrayOrStr.length - 1];
-    },
-
-    increment: function increment (num) {
-        return num + 1;
-    },
-
-    decrement: function decrement (num) {
-        return num - 1;
-    },
-
-    trim: function trim (str) {
-        return str ? str.trim() : '';
-    },
-
-    capitalize: function capitalize (str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    },
-
-    query: function query (selector) {
-        return Array.prototype.slice.call(document.querySelectorAll(selector));
-    },
-
+    /* type conversions */
     toList: function toList (obj) {
         return this.isNodeList(obj) ? [].slice.call(obj) : [obj];
     },
@@ -207,6 +202,40 @@ module.exports = {
                         .map(function (name) { return name + '=' + obj[name]; })
                         .join('&');
         return result;
+    },
+
+    /* maps */
+    first: function first (arrayOrStr) {
+        return arrayOrStr[0];
+    },
+
+    second: function second (arrayOrStr) {
+        return arrayOrStr[1];
+    },
+
+    last: function last (arrayOrStr) {
+        return arrayOrStr[arrayOrStr.length - 1];
+    },
+
+    increment: function increment (num) {
+        return num + 1;
+    },
+
+    decrement: function decrement (num) {
+        return num - 1;
+    },
+
+    trim: function trim (str) {
+        return str ? str.trim() : '';
+    },
+
+    capitalize: function capitalize (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
+    // TODO: rename to "nodes" or "getNodes" or "getElements"?
+    query: function query (selector) {
+        return Array.prototype.slice.call(document.querySelectorAll(selector));
     },
 
     appendTrailingSlash: function appendTrailingSlash (url) {
@@ -294,20 +323,51 @@ module.exports = {
         return value || {};
     },
 
-    getHtmlInputValue: function getHtmlInputValue (e) {
-        return e.target.value;
-    },
-
-    getElementName: function getTagName (element) {
-        return element.nodeName.toLowerCase();
-    },
-
     joinByNewLine: function joinByNewLine (array) {
         return array.join('\n');
     },
 
     joinByCommaSpace: function joinByCommaSpace (array) {
         return array.join(', ');
+    },
+
+    /* getters */
+    getType: function getType (value) {
+        if (value === undefined) return 'undefined';
+        if (value === null) return 'null';
+        return typeof value;
+    },
+
+    getButtons: function getButtons (parent) {
+        parent = parent || document;
+        if (typeof parent === 'string') {
+            parent = document.querySelector(parent);
+        }
+        return Array.prototype.call(parent.querySelectorAll('input[type="submit"], button'));
+    },
+
+    getDropdowns: function getDropdowns (parent) {
+        parent = parent || document;
+        if (typeof parent === 'string') {
+            parent = document.querySelector(parent);
+        }
+        return Array.prototype.call(parent.querySelectorAll('select'));
+    },
+
+    getInputs: function getInputs (parent) {
+        parent = parent || document;
+        if (typeof parent === 'string') {
+            parent = document.querySelector(parent);
+        }
+        return Array.prototype.call(parent.querySelectorAll('input:not([type="submit"])'));
+    },
+
+    getHtmlInputValue: function getHtmlInputValue (e) {
+        return e.target.value;
+    },
+
+    getElementName: function getTagName (element) {
+        return element.nodeName.toLowerCase();
     },
 
     getQueryStringRaw: function getQueryStringRaw () {
@@ -352,6 +412,7 @@ module.exports = {
         };
     },
 
+    // TODO: rename parameter to 'element'?
     setAttributes: function setAttributes (node, attributes) {
         Object.getOwnPropertyNames(attributes).forEach(function (prop) {
             node.setAttribute(prop, attributes[prop]);
@@ -359,9 +420,9 @@ module.exports = {
         return node;
     },
 
+    // TODO: rename to 'createElement'?
     createNode: function createNode (type, attributes) {
         var node = document.createElement(type);
-        // TODO: reference function above instead of copy-and-paste
         Object.getOwnPropertyNames(attributes).forEach(function (prop) {
             node.setAttribute(prop, attributes[prop]);
         });
@@ -369,7 +430,7 @@ module.exports = {
     },
 
     focusFirstFormField: function focusFirstFormField () {
-        var field = document.querySelector('input, select');
+        var field = document.querySelector('input:not([type="submit"]), select');
         if (!field) return;
         field.focus();
     },
@@ -397,8 +458,23 @@ module.exports = {
         return dropdown;
     },
 
+    removeProperty: function removeProperty (obj, property) {
+        delete obj[property];
+        return obj;
+    },
+
     removeElement: function removeElement (element) {
         element.parentElement.removeChild(element);
+    },
+
+    // TODO: overload for selector (string) input?
+    disableElement: function disableElement (element) {
+        element.disabled = true;
+    },
+
+    // TODO: overload for selector (string) input?
+    enableElement: function enableElement (element) {
+        element.disabled = false;
     },
 
     redirect: function redirect (url) {
