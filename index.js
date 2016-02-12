@@ -50,6 +50,10 @@ module.exports = {
         return num < 0;
     },
 
+    isZero: function isZero (num) {
+        return num === 0;
+    },
+
     isSingular: function isSingular (obj) {
         return obj.length === 1;
     },
@@ -146,6 +150,11 @@ module.exports = {
             if (p2) return p2.toUpperCase();
             return p1.toLowerCase();
         });
+    },
+
+    // TODO: reference string as output type somehow?
+    toMoneyString: function toMoneyString (decimal) {
+        return decimal.toFixed(2);
     },
 
     toHexString: function toHexString (num) {
@@ -256,6 +265,16 @@ module.exports = {
         return array[index];
     },
 
+    // TODO: rename arrayMin?
+    min: function min (array) {
+        return Math.min.apply(null, array);
+    },
+
+    // TODO: rename arrayMax?
+    max: function max (array) {
+        return Math.max.apply(null, array);
+    },
+
     clone: function clone (array) {
         return array.slice();
     },
@@ -323,12 +342,32 @@ module.exports = {
         return value || {};
     },
 
+    joinBySpace: function joinBySpace (array) {
+        return array.join(' ');
+    },
+
     joinByNewLine: function joinByNewLine (array) {
         return array.join('\n');
     },
 
     joinByCommaSpace: function joinByCommaSpace (array) {
         return array.join(', ');
+    },
+
+    splitBySpace: function splitBySpace (string) {
+        return string.split(' ');
+    },
+
+    splitByNewLine: function splitByNewLine (string) {
+        return string.split('\n');
+    },
+
+    splitByComma: function splitByComma (string) {
+        return string.split(',');
+    },
+
+    splitByCommaSpace: function splitByCommaSpace (string) {
+        return string.split(', ');
     },
 
     /* getters */
@@ -390,6 +429,9 @@ module.exports = {
     },
 
     getSelectedDropdownOption: function getSelectedDropdownOption (dropdown) {
+        if (typeof dropdown === 'string') {
+            dropdown = document.querySelector(dropdown);
+        }
         return dropdown.options[dropdown.selectedIndex];
     },
 
@@ -447,6 +489,16 @@ module.exports = {
         if (!value) throw error;
     },
 
+    tryCatch: function tryCatch (func, handler) {
+        return function (args) {
+            try {
+                func(args);
+            } catch (e) {
+                handler(e, args);
+            }
+        }
+    },
+
     shuffleInPlace: function shuffleInPlace (array) {
         return array.sort(function () {
             return 0.5 - Math.random();
@@ -479,6 +531,11 @@ module.exports = {
 
     redirect: function redirect (url) {
         window.location.href = url;
+    },
+
+    debug: function debug (args) {
+        debugger;
+        return args;
     },
 
     enableEs6: function enableEs6 () {
