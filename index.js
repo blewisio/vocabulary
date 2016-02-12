@@ -63,7 +63,7 @@ module.exports = {
     },
 
     isOdd: function isOdd (num) {
-        return num % 2 === 0;
+        return num % 2 !== 0;
     },
 
     isTrue: function isTrue (b) {
