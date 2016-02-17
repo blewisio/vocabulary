@@ -33,6 +33,7 @@ module.exports = {
         }
     },
 
+    // TODO: what should this return for value types?
     isNotNullOrEmpty: function isNotNullOrEmpty (value) {
         if (value === null || value === undefined) return false;
         if (value.length === undefined) {
@@ -54,12 +55,12 @@ module.exports = {
         return num === 0;
     },
 
-    isSingular: function isSingular (obj) {
-        return obj.length === 1;
+    isSingular: function isSingular (value) {
+        return (value.length === undefined && value === 1) || value.length === 1;
     },
 
-    isPlural: function isPlural (obj) {
-        return obj.length > 1;
+    isPlural: function isPlural (value) {
+        return (value.length === undefined && value > 1) || value.length > 1;
     },
 
     isEven: function isEven (num) {
@@ -80,6 +81,9 @@ module.exports = {
 
     // http://stackoverflow.com/q/1353684
     isValidDate: function isValidDate (d) {
+        if (typeof d === 'string') {
+            d = new Date(d);
+        }
         if (Object.prototype.toString.call(d) !== '[object Date]') {
             return false;
         }
@@ -111,13 +115,17 @@ module.exports = {
 
     // TODO: use more complex getType function?
     isObject: function isObject (value) {
-        return typeof value === 'object';
+        return typeof value === 'object' && !Array.isArray(value);
     },
 
     // TODO: use more complex getType function?
     isFunction: function isFunction (value) {
         return typeof value === 'function';
     },
+
+    // isArray: function isArray (value) {
+    //     return Array.isArray(value);
+    // },
 
     hasLeadingForwardSlash: function hasLeadingForwardSlash (str) {
         return str && str.charAt(0) === '/';
@@ -133,6 +141,7 @@ module.exports = {
 
     /* type conversions */
     toList: function toList (obj) {
+        if (Array.isArray(obj)) return obj;
         return this.isNodeList(obj) ? [].slice.call(obj) : [obj];
     },
 
@@ -141,7 +150,7 @@ module.exports = {
     },
 
     toHtmlClass: function toHtmlClass (className) {
-        return className.charAt(0) === '.' ? className : '#' + className;
+        return className.charAt(0) === '.' ? className : '.' + className;
     },
 
     // http://stackoverflow.com/a/15829686
@@ -306,20 +315,19 @@ module.exports = {
     },
 
     /* reducers */
-    or: function or (a, b) {
-        return a || b;
-    },
-
-    and: function and (a, b) {
-        return a && b;
-    },
-
     add: function add (a, b) {
         return a + b;
     },
 
     subtract: function subtract (a, b) {
         return a - b;
+    },
+    and: function and (a, b) {
+        return a && b;
+    },
+
+    or: function or (a, b) {
+        return a || b;
     },
 
     orFalse: function orFalse (value) {
@@ -519,14 +527,20 @@ module.exports = {
         element.parentElement.removeChild(element);
     },
 
-    // TODO: overload for selector (string) input?
     disableElement: function disableElement (element) {
+        if (typeof element === 'string') {
+            element = document.querySelector(element);
+        }
         element.disabled = true;
+        return element;
     },
 
-    // TODO: overload for selector (string) input?
     enableElement: function enableElement (element) {
+        if (typeof element === 'string') {
+            element = document.querySelector(element);
+        }
         element.disabled = false;
+        return element;
     },
 
     redirect: function redirect (url) {

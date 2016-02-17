@@ -45,6 +45,7 @@ isNodeList
 isString
 isObject
 isFunction
+isArray
 hasLeadingForwardSlash
 hasTrailingForwardSlash
 isLinkCurrentRoute
@@ -80,10 +81,10 @@ clone
 group
 getIn
 removePhrase
-or
-and
 add
 subtract
+and
+or
 orFalse
 orZero
 orEmptyString
@@ -133,17 +134,21 @@ noop
 
 Most functions should work in IE 9 or above. No attempt was made to make the library work in IE 8 or below.
 
+## Tests
+
+Run `node tests`.
+
+## Contributing
+
+Pull requests welcome! Please add unit tests to `tests.js` for any new functions.
+
 ## Dependencies
 
 None, unless you use one of the handful of functions that have external depedencies: `enableEs6` and `enableJsx`
 
 ## Versions
 
-*Beta* - missing: tests, API documentation, consistent naming of functions, organization, and structure (maybe beta is an optimistic word)
-
-## Contributing
-
-Pull requests welcome!
+*Beta* - missing: API documentation, examples, consistent naming of functions, organization, and structure (maybe beta is an optimistic word)
 
 ## License
 

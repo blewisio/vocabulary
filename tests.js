@@ -1,0 +1,127 @@
+var v = require('./index.js');
+var successes = [];
+var failures = [];
+
+assert('isNull returns true for null', function () { return v.isNull(null) })
+assert('isNull returns true for undefined', function () { return v.isNull(undefined) })
+assert('isNull returns false for zero', function () { return v.isNull(0) === false })
+assert('isNull returns false for false', function () { return v.isNull(false) === false })
+assert('isNull returns false for true', function () { return v.isNull(true) === false })
+assert('isNull returns false for empty object', function () { return v.isNull({}) === false })
+assert('isNull returns false for complex object', function () { return v.isNull({ a: 5 }) === false })
+assert('isNotNull returns false for null', function () { return v.isNotNull(null) === false })
+assert('isNotNull returns false for undefined', function () { return v.isNotNull(undefined) === false })
+assert('isNotNull returns true for zero', function () { return v.isNotNull(0) })
+assert('isNotNull returns true for false', function () { return v.isNotNull(false) })
+assert('isNotNull returns true for true', function () { return v.isNotNull(true) })
+assert('isNotNull returns true for empty object', function () { return v.isNotNull({}) })
+assert('isNotNull returns true for complex object', function () { return v.isNotNull({ a: 5 }) })
+assert('isEmpty returns true for empty array', function () { return v.isEmpty([]) })
+assert('isEmpty returns true for empty object', function () { return v.isEmpty({}) })
+assert('isEmpty returns false for non-empty array', function () { return v.isEmpty([5]) === false })
+assert('isEmpty returns false for non-empty object', function () { return v.isEmpty({ b: 3 }) === false })
+assert('isNotEmpty returns false for empty array', function () { return v.isNotEmpty([]) === false })
+assert('isNotEmpty returns false for empty object', function () { return v.isNotEmpty({}) === false })
+assert('isNotEmpty returns true for non-empty array', function () { return v.isNotEmpty([38]) })
+assert('isNotEmpty returns true for non-empty object', function () { return v.isNotEmpty({ b: 3 }) })
+assert('isNotNullOrEmpty returns true for non-empty array', function () { return v.isNotNullOrEmpty([4, 5]) })
+assert('isNotNullOrEmpty returns true for non-empty object', function () { return v.isNotNullOrEmpty({ z: 4 }) })
+// assert('isNotNullOrEmpty returns false for non-zero number', function () { return v.isNotNullOrEmpty(4) === false })
+// assert('isNotNullOrEmpty returns false for zero', function () { return v.isNotNullOrEmpty(0) === false })
+// assert('isNotNullOrEmpty returns false for true', function () { return v.isNotNullOrEmpty(true) === false })
+// assert('isNotNullOrEmpty returns false for false', function () { return v.isNotNullOrEmpty(false) === false })
+assert('isNotNullOrEmpty returns false for empty array', function () { return v.isNotNullOrEmpty([]) === false })
+assert('isNotNullOrEmpty returns false for empty object', function () { return v.isNotNullOrEmpty({}) === false })
+assert('isNotNullOrEmpty returns false for null', function () { return v.isNotNullOrEmpty({}) === false })
+assert('isNotNullOrEmpty returns false for undefined', function () { return v.isNotNullOrEmpty({}) === false })
+assert('isPositive returns true for positive numbers', function () { return v.isPositive(1) })
+assert('isPositive returns false for zero', function () { return v.isPositive(0) === false })
+assert('isPositive returns false for negative numbers', function () { return v.isPositive(-5) === false })
+assert('isNegative returns false for negative numbers', function () { return v.isNegative(-1) })
+assert('isNegative returns false for zero', function () { return v.isNegative(0) === false })
+assert('isNegative returns false for positive numbers', function () { return v.isNegative(5) === false })
+assert('isSingular returns true for one', function () { return v.isSingular(1) })
+assert('isSingular returns true for array of size one', function () { return v.isSingular([1000]) })
+assert('isSingular returns false for zero', function () { return v.isSingular(0) === false })
+assert('isSingular returns false for two', function () { return v.isSingular(2) === false })
+assert('isSingular returns false for empty array', function () { return v.isSingular([]) === false })
+assert('isSingular returns false for array of size two', function () { return v.isSingular([1000, 1]) === false })
+assert('isPlural returns true for two', function () { return v.isPlural(2) })
+assert('isPlural returns true for array of size two', function () { return v.isPlural([999, 1]) })
+assert('isPlural returns false for one', function () { return v.isPlural(1) === false })
+assert('isPlural returns false for array of size one', function () { return v.isPlural([808]) === false })
+assert('isPlural returns false for zero', function () { return v.isPlural(0) === false })
+assert('isPlural returns false for empty array', function () { return v.isPlural([]) === false })
+assert('isEven returns true for zero', function () { return v.isEven(0) })
+assert('isEven returns true for even numbers', function () { return v.isEven(2048) })
+assert('isEven returns false for odd numbers', function () { return v.isEven(1001) === false})
+assert('isOdd returns true for odd numbers', function () { return v.isOdd(1001)})
+assert('isOdd returns false for even numbers', function () { return v.isOdd(2048) === false })
+assert('isOdd returns false for zero', function () { return v.isOdd(0) === false })
+assert('isTrue returns true for true', function () { return v.isTrue(true) })
+assert('isTrue returns false for false', function () { return v.isTrue(false) === false })
+assert('isTrue returns false for strings', function () { return v.isTrue('true') === false })
+assert('isTrue returns false for objects', function () { return v.isTrue({ true: true }) === false })
+assert('isTrue returns false for arrays', function () { return v.isTrue(['true']) === false })
+assert('isTrue returns false for numbers', function () { return v.isTrue(3) === false })
+assert('isFalse returns true for false', function () { return v.isFalse(false) })
+assert('isFalse returns false for true', function () { return v.isFalse(true) === false })
+assert('isFalse returns false for strings', function () { return v.isFalse('false') === false })
+assert('isFalse returns false for objects', function () { return v.isFalse({ false: false }) === false })
+assert('isFalse returns false for arrays', function () { return v.isFalse(['false']) === false })
+assert('isFalse returns false for numbers', function () { return v.isFalse(3) === false })
+// assert('isValidDate returns true for a valid date', function () { return v.isValidDate('2015-02-15') })
+// assert('isValidDate returns false for an invalid date', function () { return v.isValidDate('2015-02-31') === false })
+// assert('isValidDate returns false for an invalid month', function () { return v.isValidDate('2015-13-05') === false })
+// assert('isValidDate returns false for an invalid day', function () { return v.isValidDate('2015-12-32') === false })
+// assert('isValidDate returns false for an invalid time', function () { return v.isValidDate('2015-02-15 25:00:00') === false })
+assert('isEscapeKeyEvent returns true for code 27', function () { return v.isEscapeKeyEvent({ keyCode: 27 }) })
+assert('isEscapeKeyEvent returns false for code 13', function () { return v.isEscapeKeyEvent({ keyCode: 13 }) === false })
+assert('isEnterKeyEvent returns true for code 13', function () { return v.isEnterKeyEvent({ keyCode: 13 }) })
+assert('isEnterKeyEvent returns false for code 27', function () { return v.isEnterKeyEvent({ keyCode: 27 }) === false })
+assert('isNodeList returns false for null', function () { return v.isNodeList(null) === false })
+assert('isString returns true for empty string', function () { return v.isString('') })
+assert('isString returns true for non-empty string', function () { return v.isString('test') })
+assert('isString returns false for null', function () { return v.isString(null) === false })
+assert('isString returns false for undefined', function () { return v.isString(undefined) === false })
+assert('isString returns false for false', function () { return v.isString(false) === false })
+assert('isString returns false for true', function () { return v.isString(true) === false })
+assert('isString returns false for a number', function () { return v.isString(5) === false })
+assert('isObject returns true for empty object', function () { return v.isObject({}) })
+assert('isObject returns true for complex object', function () { return v.isObject({ test: true }) })
+assert('isObject returns false for arrays', function () { return v.isObject([]) === false })
+assert('isFunction returns true for functions', function () { return v.isFunction(assert) })
+assert('isFunction returns true for objects', function () { return v.isFunction({}) === false })
+assert('isFunction returns true for arrays', function () { return v.isFunction([]) === false })
+// assert('isArray returns true for arrays', function () { return v.isArray([]) })
+// assert('isArray returns false for objects', function () { return v.isArray({}) === false })
+// assert('isArray returns false for functions', function () { return v.isArray(assert) === false })
+assert('hasLeadingForwardSlash returns true if string starts with slash', function () { return v.hasLeadingForwardSlash('/v1/users') })
+assert('hasLeadingForwardSlash returns false if string does not start with slash', function () { return v.hasLeadingForwardSlash('v1/users') === false })
+assert('hasTrailingForwardSlash returns true if string starts with slash', function () { return v.hasTrailingForwardSlash('/v1/users/') })
+assert('hasTrailingForwardSlash returns false if string does not start with slash', function () { return v.hasTrailingForwardSlash('v1/users') === false })
+assert('toList returns the original array', function () { return v.toList(['z'])[0] === 'z' })
+assert('toHtmlId returns original input if first character is pound sign', function () { return v.toHtmlId('#id') === '#id' })
+assert('toHtmlId returns prepended pound sign if first character is not one', function () { return v.toHtmlId('id') === '#id' })
+assert('toHtmlClass returns original input if first character is period', function () { return v.toHtmlClass('.class') === '.class' })
+assert('toHtmlClass returns prepended period if first character is not one', function () { return v.toHtmlClass('class') === '.class' })
+
+console.log('SUCCESS: ' + successes.length + ' tests');
+console.log('FAILURE: ' + failures.length + ' tests');
+if (failures.length > 0) {
+    console.log('\n  ' + failures.join('\n  ') + '\n');
+}
+
+function assert (test, func) {
+    try {
+        var result = func();
+        if (result) {
+            successes.push(test);
+        } else {
+            failures.push(test);
+        }
+    } catch (e) {
+        failures.push(test + ' (exception)');
+        console.log(e);
+    }
+}

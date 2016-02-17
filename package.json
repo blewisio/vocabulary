@@ -1,11 +1,9 @@
 {
   "name": "vocabulary",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "JS utility library to the extreme.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blewis008/vocabulary.git"
